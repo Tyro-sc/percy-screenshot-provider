@@ -1,5 +1,5 @@
-/**
- * Copyright © ${project.inceptionYear} Ovea (d.avenante@gmail.com)
+/*
+ * Copyright © 2021 Ovea (d.avenante@gmail.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import static sc.tyro.core.Tyro.takeScreenshot
 
 @DisplayName("Screenshot Tests")
 class PercyProviderTest {
-    Percy percy = spy(new Percy(null))
+    private Percy percy = mock(Percy)
 
     @BeforeEach
     void before() {
@@ -35,7 +35,7 @@ class PercyProviderTest {
     }
 
     @Test
-    @DisplayName("Should take window screenshot with percy")
+    @DisplayName("Should take window screenshot with Percy")
     void percyScreenshot() {
         takeScreenshot('percy')
 
@@ -43,7 +43,7 @@ class PercyProviderTest {
     }
 
     @Test
-    @DisplayName("Should take window screenshot with percy specific config")
+    @DisplayName("Should take window screenshot with Percy specific config")
     void percyConfigScreenshot() {
         PercyProvider provider = screenshotProvider as PercyProvider
         provider.widths = List.of(1, 2, 3)
