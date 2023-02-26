@@ -34,25 +34,26 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
 
-        <tyro-web.version>1.2.0</tyro-web.version>
-        <groovy.version>2.5.14</groovy.version>
+        <tyro-web.version>1.4.0</tyro-web.version>
         <percy.version>1.0.0</percy.version>
-        <codenarc.version>2.1.0</codenarc.version>
-        <slf4j.version>1.7.32</slf4j.version>
+        <groovy.version>3.0.15</groovy.version>
+        <slf4j.version>1.7.36</slf4j.version>
 
         <!-- Tests -->
-        <junit.jupiter.version>5.8.0</junit.jupiter.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <mockito-junit.version>3.12.4</mockito-junit.version>
 
         <!-- Plugins -->
-        <gmavenplus-plugin.version>1.8.1</gmavenplus-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <gmavenplus-plugin.version>2.1.0</gmavenplus-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M9</maven-surefire-plugin.version>
+        <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <groovydoc-maven-plugin.version>2.1</groovydoc-maven-plugin.version>
         <license-maven-plugin.version>4.1</license-maven-plugin.version>
         <codenarc-maven-plugin>0.22-1</codenarc-maven-plugin>
-        <codenarc.version>2.1.0</codenarc.version>
+        <codenarc.version>2.2.0</codenarc.version>
     </properties>
 
     <licenses>
@@ -173,11 +174,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.percy</groupId>
-            <artifactId>percy-java-selenium</artifactId>
-            <version>${percy.version}</version>
-        </dependency>
-        <dependency>
             <groupId>sc.tyro</groupId>
             <artifactId>tyro-web</artifactId>
             <version>${tyro-web.version}</version>
@@ -188,6 +184,11 @@
                 </exclusion>
             </exclusions>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.percy</groupId>
+            <artifactId>percy-java-selenium</artifactId>
+            <version>${percy.version}</version>
         </dependency>
 
         <!-- Tests -->
