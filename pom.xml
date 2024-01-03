@@ -27,16 +27,16 @@
     <inceptionYear>2021</inceptionYear>
 
     <description>Percy screenshot provider</description>
-    <url>http://www.tyro.sc</url>
+    <url>https://www.tyro.sc</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
 
-        <tyro-web.version>1.6.0</tyro-web.version>
+        <tyro-web.version>1.7.0</tyro-web.version>
         <percy.version>2.0.2</percy.version>
-        <groovy.version>3.0.19</groovy.version>
+        <groovy.version>4.0.17</groovy.version>
         <slf4j.version>2.0.10</slf4j.version>
 
         <!-- Tests -->
@@ -48,7 +48,7 @@
         <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
         <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <groovydoc-maven-plugin.version>2.1</groovydoc-maven-plugin.version>
         <license-maven-plugin.version>4.3</license-maven-plugin.version>
@@ -59,7 +59,7 @@
     <licenses>
         <license>
             <name>Apache License 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -77,7 +77,7 @@
             <name>David Avenante</name>
             <email>altus34@gamil.com</email>
             <organization>Ovea</organization>
-            <organizationUrl>http://www.ovea.com/</organizationUrl>
+            <organizationUrl>https://www.ovea.com/</organizationUrl>
             <timezone>-5</timezone>
             <roles>
                 <role>developer</role>
@@ -110,14 +110,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>${groovy.version}</version>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
@@ -154,6 +146,27 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>codenarc-maven-plugin</artifactId>
                 <version>${codenarc-maven-plugin}</version>
@@ -168,6 +181,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.groovy</groupId>
+                        <artifactId>groovy</artifactId>
+                        <version>${groovy.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -226,24 +246,28 @@
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>publish</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>${maven-release-plugin.version}</version>
                         <configuration>
-                            <executable>${gpg.executable}</executable>
-                            <keyname>${gpg.keyname}</keyname>
-                            <passphrase>${gpg.passphrase}</passphrase>
+                            <tagNameFormat>@{project.version}</tagNameFormat>
+                            <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>
                         </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>sign-artifacts</id>
+                                <id>attach-sources</id>
                                 <phase>verify</phase>
                                 <goals>
-                                    <goal>sign</goal>
+                                    <goal>jar-no-fork</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -258,6 +282,20 @@
                                 <phase>package</phase>
                                 <goals>
                                     <goal>attach-docs</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
                                 </goals>
                             </execution>
                         </executions>
