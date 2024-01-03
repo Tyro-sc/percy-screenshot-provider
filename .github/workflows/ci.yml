@@ -21,3 +21,6 @@ jobs:
           distribution: 'liberica'
       - name: Build and Tests with Chrome
         run: ./mvnw clean package
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
