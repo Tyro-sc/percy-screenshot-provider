@@ -34,7 +34,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
 
-        <tyro-web.version>1.6.0</tyro-web.version>
+        <tyro-web.version>1.7.0</tyro-web.version>
         <percy.version>2.0.2</percy.version>
         <groovy.version>3.0.19</groovy.version>
         <slf4j.version>2.0.10</slf4j.version>
