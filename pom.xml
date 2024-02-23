@@ -41,7 +41,7 @@
 
         <!-- Tests -->
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
-        <mockito-junit.version>5.8.0</mockito-junit.version>
+        <mockito-junit.version>5.10.0</mockito-junit.version>
 
         <!-- Plugins -->
         <gmavenplus-plugin.version>3.0.2</gmavenplus-plugin.version>
